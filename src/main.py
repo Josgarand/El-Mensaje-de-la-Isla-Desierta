@@ -2,7 +2,7 @@ from collections import Counter
 
 def validacionMensaje(mensaje, cofre):
     mensaje = mensaje.replace(" ", "").lower()
-    cofre = cofre.lower()
+    cofre = cofre.replace(" ", "").lower()
     
     letras_mensaje = Counter(mensaje)
     letras_cofre = Counter(cofre)
@@ -13,5 +13,5 @@ def validacionMensaje(mensaje, cofre):
     return True
 
 
-print(validacionMensaje("hola mundo", "holamundo"))
-print(validacionMensaje("test", "dasiknujfewrnoiuj"))
+# print(validacionMensaje("hola mundo", "holamundo"))
+# print(validacionMensaje("test", "dasiknujfewrnoiuj"))
