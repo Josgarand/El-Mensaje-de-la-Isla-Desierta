@@ -9,23 +9,22 @@ Dentro de la función `validacionMensaje` se hacen varias operaciones secuencial
 
 1. **Normalización (Se quitan los espacios y se pasa a minúsculas)**
    - Se utiliza `.replace()` y `.lower()`, funciones que recorren cada cadena de texto una vez.
-   - Complejidad: O(m + c)
+   - Complejidad temporal: O(m + c)
 
 2. **Validación con expresiones regulares**
-   - `re.fullmatch()` de la misma forma que las anteriores funciones recorren una vez las cadenas de texto.
-   - Complejidad: O(m + c)
+   - `re.fullmatch()` también recorre una vez las cadenas de texto.
+   - Complejidad temporal: O(m + c)
 
 3. **Contadores con `collections.Counter`**
-   - Recorre las cadenas de texto una vez para contar cada uno de los caracteres y crea los diccionarios de cuantas veces aparece cada caracter.
-   - Complejidad: O(m + c)
+   - De la misma forma gracias a `collections.Counter` se recorren las cadenas de texto una vez y se crean los diccionarios de cuántas veces aparece cada carácter en `mensaje` y `cofre`.
+   - Complejidad temporal: O(m + c)
 
 4. **Comparación letra por letra**  
-   - Se recorren las letras distintas en el `mensaje`, y por cada una se accede al número de veces que aparece en el `cofre`.
-   - Acceder a un valor en un diccionario (`Counter`) es O(1), así que este bucle es O(k), donde `k` es el número de letras únicas del mensaje.
-   - En el peor caso, `k = m` (si todas las letras del mensaje son diferentes).
-   - → Complejidad: O(m)
+   - Se recorren todas las letras distintas del `mensaje`, y se comprueba las veces que aparece cada una en el `cofre`.
+   - Acceder a un valor en un diccionario (`Counter`) sería O(1), así que este bucle es O(k), `k` es el número de letras distintas del mensaje, el número máximo que puede ser `k` es `k = m` si todas las letras del mensaje fuesen distintas.
+   - Complejidad temporal: O(m)
 
-Por tanto, la complejidad temporal de la función es:
+Complejidad temporal:
 
 **O(m + c)**  
 
@@ -33,10 +32,9 @@ Por tanto, la complejidad temporal de la función es:
 
 ## Complejidad Espacial (Memoria)
 
-Se usan dos diccionarios (`Counter`) para almacenar las letras del mensaje y del cofre.
+Se usan dos diccionarios para guardar que letras y cuanto se repiten en el mensaje y el cofre.
 
-- En el peor caso, estos diccionarios tienen `m` y `c` entradas (si todas las letras son distintas).
-- Solo se permiten letras del alfabeto español con tildes, por lo tanto el número máximo de claves es **33** por cada diccionario, en términos de Big O se considera constante.
+- Solo se permiten letras del alfabeto español con tildes, por lo tanto el número máximo de claves es **33** por cada diccionario (`m` y `c`), en términos de Big O se considera constante.
 
 Complejidad espacial:  
 
@@ -46,7 +44,7 @@ Complejidad espacial:
 
 ## Estructura de datos
 
-- Se utiliza **Counter** para transformar una cadena de texto en un diccionario que indica cuántas veces aparece cada carácter, lo que facilita la comparación entre mensaje y cofre.
+- Para guardar las cadenas de texto del `mensaje` y `cofre` se utiliza **Counter**, transforma las cadenas de texto en diccionarios que indican cuántas veces aparece cada carácter, lo que facilita la comparación entre mensaje y cofre.
 
 ---
 
@@ -56,21 +54,20 @@ Complejidad espacial:
 
 - **Eficiencia**: Se logra una solución lineal O(m + c) usando estructuras adecuadas.
 
-- **Validación con regex**: En un principio se filtraban estos caracteres no validos con **ascii_lowercase** pero no funcionaba de forma correcta con las tildes, esto cambio a **regex** lo cual añade una pequeña sobrecarga, pero asegura que no se introduzcan caracteres no válidos.
+- **Validación con regex**: En un principio se filtraban estos caracteres que no eran válidos usando **ascii_lowercase** pero no funcionaba correctamente con las tildes, se cambió a **regex**, esto añade una pequeña sobrecarga pero se asegura de que no se introduzcan caracteres no válidos y permite diferenciar los caracteres que tienen tilde y de los que no.
 
-- No es tolerante a caracteres especiales, no dará error pero siempre que esten en el mensaje o en el cofre el resultado será "False".
+- Los caracteres especiales no dan error pero siempre que estén en el mensaje o en el cofre el resultado de la función será "False".
 
 ---
 
 ## Casos extremos considerados
 
-- Se ignora el uso de mayúsculas
+- Se ignora correctamente el uso de mayúsculas
 
-- Se diferencia entre caracteres con tildes
+- Se diferencia entre caracteres con tildes y los que no las tienen
 
-- Funciona correctamente con cadenas de texto muy grandes (de hasta un millón de caracteres)
+- Funciona correctamente con cadenas de texto muy grandes por ejemplo de un millón de caracteres
 
 - Se ignoran los espacios
 
-- No da error cuando se usan caracteres especiales ("#", "@", "€", etc...)
-
+- Cando se usan caracteres especiales ("#", "@", "€", etc...) no da error, da False
