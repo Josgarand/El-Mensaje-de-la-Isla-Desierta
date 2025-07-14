@@ -17,8 +17,9 @@ class TestValidacionMensaje(unittest.TestCase):
         self.assertTrue(validacionMensaje("t es t", " test"))
         
     def test_caracteres_especiales(self):
-        self.assertFalse(validacionMensaje("###", "###"))
+        self.assertFalse(validacionMensaje("asd#", "asd#"))
         self.assertFalse(validacionMensaje("@@@", "@@@@"))
+
         
     def test_acentos(self):    
         self.assertTrue(validacionMensaje("Á", "á"))
@@ -30,4 +31,8 @@ class TestValidacionMensaje(unittest.TestCase):
         cofre2 = "b" * 10**6
         self.assertTrue(validacionMensaje(mensaje, cofre))
         self.assertFalse(validacionMensaje(mensaje, cofre2))
+        
+    def test_numeros(self):    
+        self.assertTrue(validacionMensaje("asd9", "asd9"))
+        self.assertFalse(validacionMensaje("asd9", "asd8"))
         

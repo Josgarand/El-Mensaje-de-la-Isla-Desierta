@@ -6,9 +6,9 @@ def validacionMensaje(mensaje:str = None, cofre:str = None) -> bool:
     mensaje = mensaje.replace(" ", "").lower()
     cofre = cofre.replace(" ", "").lower()
     
-    if not re.fullmatch(r'[a-záéíóúüñ]+', mensaje, re.IGNORECASE):
+    if not re.fullmatch(r'[a-záéíóúüñ0-9]+', mensaje, re.IGNORECASE):
         return False
-    if not re.fullmatch(r'[a-záéíóúüñ]+', cofre, re.IGNORECASE):
+    if not re.fullmatch(r'[a-záéíóúüñ0-9]+', cofre, re.IGNORECASE):
         return False
     
     letras_mensaje = Counter(mensaje)
