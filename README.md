@@ -11,7 +11,7 @@ No es necesario instalar dependencias externas.
 
 ## Ejemplos de uso
 
-En el propio código de **main.py** se puede encontrar comentados en la parte inferior, dos ejemplos para ejecutar la función por si se necesita hacer pruebas de una forma rápida, la forma en la que se llama a la función si se ejecuta desde el mismo archivo será desde un **print()** para ver el resultado en la consola:
+La forma para llamar a la función si se ejecuta desde el mismo archivo será desde un **print()** para ver el resultado en la consola:
 
 ```python
 print(validacionMensaje("SOS", "PELIGROSOS"))
