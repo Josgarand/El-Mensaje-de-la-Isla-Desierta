@@ -1,4 +1,4 @@
-## El Mensaje de la Isla Desierta
+# El Mensaje de la Isla Desierta
 
 En este proyecto se busca mediante una función poder comprobar si el texto de un mensaje se puede formar con los caracteres que estén disponibles en un cofre. Se ignoran los espacios, se tienen en cuenta los caracteres especiales que no pueden ser introducidos y se permite el uso de acentos.
 
@@ -11,13 +11,13 @@ No es necesario instalar dependencias externas.
 
 ## Ejemplos de uso
 
-En el propio código de **main.py** se puede encontrar, comentados en la parte inferior, dos ejemplos para ejecutar la función por si se necesita hacer pruebas de una forma rápida, la forma en la que se llama a la función si se ejecuta desde el mismo archivo será desde un **print()** para ver el resultado en la consola:
+En el propio código de **main.py** se puede encontrar comentados en la parte inferior, dos ejemplos para ejecutar la función por si se necesita hacer pruebas de una forma rápida, la forma en la que se llama a la función si se ejecuta desde el mismo archivo será desde un **print()** para ver el resultado en la consola:
 
 ```python
-    print(validacionMensaje("SOS", "PELIGROSOS"))
+print(validacionMensaje("SOS", "PELIGROSOS"))
 ```
 
-Si quieres llamar a la función desde otro archivo es necesario hacer el import de la función:
+Si quieres llamar a la función desde otro archivo es necesario importar la función:
 
 ```python
 from src.main import validacionMensaje
@@ -25,16 +25,12 @@ from src.main import validacionMensaje
 print(validacionMensaje("SOS", "PELIGROSOS"))
 ```
 
-Por último, si quieres escribir tus propios tests utilizando la librería unittest, debes importar tanto unittest como la función validacionMensaje. Luego, define una clase que herede de **unittest.TestCase** y dentro de ella crea métodos que comiencen con **test_**. Usa **self.assertTrue()** o **self.assertFalse()** para comprobar si el resultado de la función es el esperado:
+Por último, si quieres añadir un test o editar uno existente dentro de la carpeta tests en el archivo test.py encontrarás una clase que hereda de **unittest.TestCase**, dentro de ella están las funciones en las que se realizan los test, las funciones deberan de comenzar por **test_** y se debe de usar **self.assertTrue()** o **self.assertFalse()** para comprobar si el resultado de la función es el esperado. 
 
 ```python
-import unittest
-from src.main import validacionMensaje
-
-class TestValidacionMensaje(unittest.TestCase):
-    def test_ejemplo(self):
-        self.assertTrue(validacionMensaje("SOS", "PELIGROSOS"))
-        self.assertFalse(validacionMensaje("RESCUE", "RSCU"))
+def test_ejemplo(self):
+    self.assertTrue(validacionMensaje("SOS", "PELIGROSOS"))
+    self.assertFalse(validacionMensaje("RESCUE", "RSCU"))
 ```
 
 ## Cómo ejecutar los tests

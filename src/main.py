@@ -1,5 +1,4 @@
 from collections import Counter
-# import string
 import re
 
 def validacionMensaje(mensaje:str = None, cofre:str = None) -> bool:
@@ -15,15 +14,6 @@ def validacionMensaje(mensaje:str = None, cofre:str = None) -> bool:
     letras_mensaje = Counter(mensaje)
     letras_cofre = Counter(cofre)
     
-    # TODO: DOCUMENTAR ESTO
-    # permitidos = set(string.ascii_lowercase)    
-    
-    # if not all(m in permitidos for m in mensaje):
-    #     # print("\ncaracteres no permitidos en mansaje")
-    #     return False
-    
-    # if not all(c in permitidos for c in cofre):
-    #     return False
     for letra, cantidad in letras_mensaje.items():
         if letras_cofre[letra] < cantidad:
             return False
