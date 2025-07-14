@@ -16,3 +16,18 @@ class TestValidacionMensaje(unittest.TestCase):
         self.assertTrue(validacionMensaje("test", "test "))
         self.assertTrue(validacionMensaje("t es t", " test"))
         
+    def test_caracteres_especiales(self):
+        self.assertFalse(validacionMensaje("###", "###"))
+        self.assertFalse(validacionMensaje("@@@", "@@@@"))
+        
+    def test_acentos(self):    
+        self.assertTrue(validacionMensaje("Á", "á"))
+        self.assertFalse(validacionMensaje("a", "Á"))
+        
+    def test_muchos_caracteres(self):
+        mensaje = "a" * 10**6
+        cofre = "a" * 10**6
+        cofre2 = "b" * 10**6
+        self.assertTrue(validacionMensaje(mensaje, cofre))
+        self.assertFalse(validacionMensaje(mensaje, cofre2))
+        
