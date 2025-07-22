@@ -27,11 +27,11 @@ class TestvalidateMessage(unittest.TestCase):
         self.assertFalse(validateMessage("a", "Á"))
 
     def test_large_input(self):
-        mensaje = "a" * 10**6
-        cofre = "a" * 10**6
-        cofre2 = "b" * 10**6
-        self.assertTrue(validateMessage(mensaje, cofre))
-        self.assertFalse(validateMessage(mensaje, cofre2))
+        message = "a" * 10**6
+        chest = "a" * 10**6
+        chest2 = "b" * 10**6
+        self.assertTrue(validateMessage(message, chest))
+        self.assertFalse(validateMessage(message, chest2))
 
     def test_numbers(self):    
         self.assertTrue(validateMessage("asd9", "asd9"))
