@@ -1,74 +1,73 @@
-# Análisis Técnico
+   # Technical Analysis
+   ## Time Complexity (Big O)
 
-## Complejidad Temporal (Big O)
+   Let `m` be the length of the message and `c` the length of the chest.
 
-- Se tendrá en cuenta que `m` será la longitud del `mensaje` y `c` será la longitud del `cofre`
+   Here’s what the function does step by step:
 
-Dentro de la función `validacionMensaje` se hacen varias operaciones que se tienen en cuenta para la complejidad temporal.
+   1. **Normalize text**
+      - We remove spaces and make everything lowercase. Each string is scanned once.
+      - Time: O(m + c)
 
-1. **Normalización (Se quitan los espacios y se pasa a minúsculas)**
-   - Se utiliza `.replace()` y `.lower()`, son métodos que recorren las cadenas de texto una vez.
-   - Complejidad temporal: O(m + c)
+   2. **Count characters**
+      - We use `Counter` to count how many times each character appears in the message.
+      - Time: O(m)
 
-2. **Validación con expresiones regulares**
-   - Con el método `re.fullmatch()` también se recorrerá solo una vez las cadenas de texto.
-   - Complejidad temporal: O(m + c)
+   3. **Sum needed characters**
+      - We calculate how many total characters we need from the message.
+      - Time: O(m)
 
-3. **Contadores con `collections.Counter`**
-   - De la misma forma `collections.Counter` recorre las cadenas de texto solo una vez creando diccionarios de estos caracteres.
-   - Complejidad temporal: O(m + c)
+   4. **Search in the chest**
+      - We go through the chest one character at a time.
+      - If a character is needed, we keep track of how many times we’ve seen it.
+      - The loop stops early if we already found everything.
+      - Worst case: we check the whole chest.
+      - Time: O(c)
 
-4. **Comparación letra por letra**  
-   - Se recorren todas las letras distintas del `mensaje`, y se comprueba las veces que aparece cada una en el `cofre`.
-   - Acceder a un valor en un diccionario (`Counter`) sería O(1), así que este bucle es O(k), `k` es el número de caracteres distintos del mensaje, el máximo de caracteres que podrían existir es `k = m` si todas las letras del mensaje fueran distintas.
-   - Complejidad temporal: O(m)
+   ### Final Time Complexity
 
-Complejidad temporal:
+   **O(m + c)**
 
-**O(m + c)**  
+   ---
 
----
+   ## Space Complexity (Memory)
 
-## Complejidad Espacial (Memoria)
+   Two dictionaries (`Counter`) are used to keep track of character counts:
 
-Se usan dos diccionarios para guardar cuántas veces aparece cada carácter del mensaje y el cofre.
+   - `required`: holds the character frequencies from the message.
+   - `found`: keeps track of how many required characters have been found in the chest.
 
-- Solo se permiten números y letras del alfabeto español incluidas con tilde, por lo tanto el número máximo de claves es **43** por cada diccionario, lo cual en términos de Big O se considera constante.
+   The number of possible characters is limited (letters, digits, and accented characters), so the number of keys is bounded in practice.
 
-Complejidad espacial:  
+   ### Final Space Complexity:
 
-**O(m + c)**
+   **O(k)**, where `k` is the number of unique characters in the message (practically constant).  
+   Effectively: **O(1)**
 
----
+   ---
 
-## Estructura de datos
+   ## Data Structures
 
-- Para guardar las cadenas de texto del `mensaje` y `cofre` se utiliza **Counter**, el cual transforma las cadenas de texto en diccionarios que indican cuántas veces aparece cada carácter, lo que facilita la comparación entre mensaje y cofre.
+   - The function uses `Counter` from the `collections` module to store the number of times each character appears in the message (`required`).
+   - To track how many valid characters have been found so far (`found`).
+   - A running counter (`have`) and a total needed count (`needed`) allow for early exit from the loop.
 
----
+   ---
 
-## Trade-offs
+   ## Trade-offs
 
-- **Simplicidad**: La función fácil de entender y corta, gracias a utilizar los diccionarios hechos con `Counter`.
+   - **Simplicity**: The code remains clean and readable while achieving better performance.
+   - **Efficiency**: The function ends as soon as the message can be formed, which improves performance in many cases.
+   - **Memory usage**: Uses two dictionaries `Counter` efficiently, without extra data structures.
 
-- **Eficiencia**: Se logra una solución lineal O(m + c) usando estructuras adecuadas.
+   ---
 
-- **Validación con regex**: En un principio se filtraban los caracteres que no eran válidos usando **ascii_lowercase** pero no funcionaba correctamente con las tildes, se cambió a **regex**, esto provoca una pequeña sobrecarga extra pero se asegura de que cuando se utilicen caracteres no válidos no de error y permite diferenciar los caracteres que tienen tilde de los que no.
+   ## Edge Cases Considered
 
-- Los caracteres especiales no dan error pero siempre que estén en el mensaje o en el cofre el resultado de la función será "False".
-
----
-
-## Casos extremos considerados
-
-- Se ignora correctamente el uso de mayúsculas
-
-- Se diferencia entre caracteres con tildes y los que no las tienen
-
-- Funciona correctamente con cadenas de texto muy grandes por ejemplo, de un millón de caracteres
-
-- Se ignoran los espacios
-
-- Funciona correctamente con números
-
-- Cuando se usan caracteres especiales ("#", "@", "€", etc...) no da error, devuelve False
+   - Ignores if the character is uppercase or lowercase
+   - Handles accented characters
+   - Efficient with large input like 1 million characters or more
+   - Spaces are ignored
+   - Works with numbers
+   - Special characters like `#` are supported
+   - Works with other character languages

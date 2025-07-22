@@ -1,20 +1,24 @@
 from collections import Counter
-import re
 
-def validacionMensaje(mensaje:str = None, cofre:str = None) -> bool:
+def validateMessage(message: str = None, chest: str = None) -> bool:
     
-    mensaje = mensaje.replace(" ", "").lower()
-    cofre = cofre.replace(" ", "").lower()
-    
-    if not re.fullmatch(r'[a-záéíóúüñ0-9]+', mensaje):
-        return False
-    if not re.fullmatch(r'[a-záéíóúüñ0-9]+', cofre):
-        return False
-    
-    letras_mensaje = Counter(mensaje)
-    letras_cofre = Counter(cofre)
-    
-    for letra, cantidad in letras_mensaje.items():
-        if letras_cofre[letra] < cantidad:
-            return False
-    return True
+    message = message.replace(" ", "").lower()
+    chest = chest.replace(" ", "").lower()
+
+    required = Counter(message)
+    found = Counter()    
+
+    needed = sum(required.values())
+    have = 0
+
+    for char in chest:
+        # Checks the correct character is found
+        if char in required and found[char] < required[char]:
+            found[char] += 1
+            have += 1
+
+            # Checks the total amount of characters is found
+            if have == needed:
+                return True
+
+    return False

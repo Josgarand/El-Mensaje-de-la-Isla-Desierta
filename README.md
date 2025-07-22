@@ -1,54 +1,39 @@
-# El Mensaje de la Isla Desierta
+# The Desert Island Message
 
-En este proyecto se busca mediante una función poder comprobar si el texto de un mensaje se puede formar con los caracteres que estén disponibles en un cofre. Se ignoran los espacios, se tienen en cuenta los caracteres especiales que no pueden ser introducidos y se permite el uso de acentos.
+This project provides a function to check whether a message can be formed using only the characters available in a chest. Spaces are ignored, and all characters are treated case-insensitively. No restrictions are applied regarding character types (e.g., accented characters or symbols are allowed).
 
-## Requisitos
+## Requirements
 
-Este proyecto está desarrollado en **Python 3.13.1**, pero debería funcionar en versiones anteriores, ya que no utiliza ninguna funcionalidad fuera de la biblioteca estándar.
+This project was developed in **Python 3.13.1**, but it should work on earlier versions as it only uses the standard library.
 
-No es necesario instalar dependencias externas.
+No external dependencies are required.
 
+## Usage examples
 
-## Ejemplos de uso
-
-La forma para llamar a la función si se ejecuta desde el mismo archivo será desde un **print()** para ver el resultado en la consola:
-
-```python
-print(validacionMensaje("SOS", "PELIGROSOS"))
-```
-
-Si quieres llamar a la función desde otro archivo es necesario importar la función:
+If you want to call the function from the same file, you can use a **print()** to see the result in the console:
 
 ```python
-from src.main import validacionMensaje
-
-print(validacionMensaje("SOS", "PELIGROSOS"))
+print(validateMessage("SOS", "DANGEROUSSOS"))
 ```
 
-Por último, si quieres añadir un test o editar uno existente dentro de la carpeta tests en el archivo test.py encontrarás una clase que hereda de **unittest.TestCase**, dentro de ella están las funciones en las que se realizan los test, las funciones deberan de comenzar por **test_** y se debe de usar **self.assertTrue()** o **self.assertFalse()** para comprobar si el resultado de la función es el esperado. 
+To add or edit tests, go to the tests folder and open the test.py file. There you will find a class that inherits from unittest.TestCase. Inside that class, you'll see functions that start with test_. and you can add them as in the example below.
 
 ```python
-def test_ejemplo(self):
-    self.assertTrue(validacionMensaje("SOS", "PELIGROSOS"))
-    self.assertFalse(validacionMensaje("RESCUE", "RSCU"))
+def test_example(self):
+    self.assertTrue(validateMessage("SOS", "DANGEROUSSOS"))
+    self.assertFalse(validateMessage("RESCUE", "RSCU"))
 ```
 
-## Cómo ejecutar los tests
+## How to run the tests
 
-Desde la raíz del proyecto se puede ejecutar los tests con el siguiente comando:
+From the project root, you can run all the tests using the following command:
 
 ```bash
 python -m unittest tests.test
 ```
 
-Si se necesita ver el resultado de una forma más detallada de cada test se debe de añadir al comando el flag **-v**:
+You can also run a specific test by specifying the test class and method name:
 
 ```bash
-python -m unittest tests.test -v
-```
-
-También es posible ejecutar un único test, por si solo se quiere comprobar una parte específica de la función. Para ello, basta con añadir al comando el nombre de la clase de pruebas y el del método que se quiere comprobar:
-
-```bash
-python -m unittest tests.test.TestValidacionMensaje.test_mayusculas
+python -m unittest tests.test.TestvalidateMessage.test_uppercase_handling
 ```
